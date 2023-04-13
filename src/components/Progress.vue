@@ -1,5 +1,5 @@
 <script lang='ts' setup>
-export interface Props {
+interface Props {
   percentage: number
   isAnimate?: boolean
   time?: number
@@ -11,7 +11,7 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 // 标识动画加载过程中改变的值
-const realPercentage = ref(0)
+const realPercentage = ref(props.isAnimate ? 0 : props.percentage)
 
 onMounted(() => {
   if (props.isAnimate) {

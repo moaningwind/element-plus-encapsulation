@@ -1,5 +1,5 @@
 <script lang="tsx">
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { DefineComponent, ExtractPropTypes } from 'vue'
 import * as Icons from '@element-plus/icons-vue'
 
 interface MenuItem {
@@ -15,30 +15,32 @@ const props = {
     type: Array as PropType<MenuItem[]>,
     required: true,
   },
-  name: {
+  nameField: {
     type: String,
     default: 'name',
   },
-  index: {
+  indexField: {
     type: String,
     default: 'index',
   },
-  icon: {
+  iconField: {
     type: String,
     default: 'icon',
   },
-  children: {
+  childrenField: {
     type: String,
     default: 'children',
   },
 } as const
 
+type MenuProps = ExtractPropTypes<typeof props>
+
 type RequiredByKeys<T, K extends keyof T> = {
   [P in K]-?: T[P]
 } & Omit<T, K>
 
-export type MenuProps = RequiredByKeys<
-  Partial<ExtractPropTypes<typeof props>>,
+export type RealMenuProps = RequiredByKeys<
+  Partial<MenuProps>,
   'menuData'
 >
 
@@ -47,37 +49,37 @@ export default defineComponent({
   setup(props, { attrs }) {
     const renderMenu = (menuData: MenuItem[]) => {
       return menuData.map((item) => {
-        const Icon = (Icons as any)[item[props.icon]]
+        const Icon = item[props.iconField]
+          ? (Icons as any)[item[props.iconField]] as DefineComponent<{}, {}, any>
+          : null
 
-        // sub-menu
-        const slots = {
-          default: () => renderMenu(item[props.children]),
-          title: () => {
-            return (
+        if (item[props.childrenField]?.length) {
+          // sub-menu
+          const slots = {
+            default: () => renderMenu(item[props.childrenField]),
+            title: () => {
+              return (
               <>
-                <Icon class="w4 h4 mr1" />
-                <span>{item[props.name]}</span>
+                {Icon ? <Icon h4 w4 /> : null}
+                <span>{item[props.nameField]}</span>
               </>
-            )
-          },
+              )
+            },
+          }
+          return <el-sub-menu min-w-45 gap-1 index={item[props.indexField]} v-slots={slots} />
         }
 
-        // 递归渲染children
-        if (item[props.children]?.length)
-          return <el-sub-menu class="min-w-45" index={item[props.index]} v-slots={slots} />
-
-        // 正常渲染普通的菜单
         return (
-          <el-menu-item class="min-w-45" index={item[props.index]}>
-            <Icon class="w4 h4 mr1" />
-            <span>{item[props.name]}</span>
+          <el-menu-item min-w-45 gap-1 index={item[props.indexField]}>
+            {Icon ? <Icon h4 w4 /> : null}
+            <span>{item[props.nameField]}</span>
           </el-menu-item>
         )
       })
     }
 
     return () => (
-      <el-menu class="h100vh" {...attrs}>
+      <el-menu h-screen {...attrs}>
         {renderMenu(props.menuData)}
       </el-menu>
     )

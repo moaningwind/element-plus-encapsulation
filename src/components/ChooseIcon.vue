@@ -1,7 +1,6 @@
 <script lang='ts' setup>
 import * as ElIcons from '@element-plus/icons-vue'
 import { ElMessage } from 'element-plus'
-import { toLine } from '@/utils'
 
 const props = defineProps<{
   title: string
@@ -16,8 +15,8 @@ const visible = useVModel(props, 'modelValue', emits)
 
 const { copy } = useClipboard()
 
-const handleClickIcon = (item: string) => {
-  const text = `<el-icon-${toLine(item)} />`
+function handleClickIcon(key: string) {
+  const text = `<${key} />`
   copy(text).then(() => {
     visible.value = false
     ElMessage.success('复制成功')
@@ -31,19 +30,19 @@ const handleClickIcon = (item: string) => {
   </el-button>
   <el-dialog v-model="visible" :title="title">
     <div
-      h120 overflow-auto
-      flex="~ wrap" justify-center items-center
+      h120 items-center justify-center overflow-auto
+      flex="~ wrap"
     >
       <div
-        v-for="(item, index) in Object.keys(ElIcons)"
+        v-for="(key, index) in Object.keys(ElIcons)"
         :key="index"
-        class="w1/4 h20"
-        flex="~ col" justify-center items-center
-        cursor-pointer
-        @click="handleClickIcon(item)"
+        h20 cursor-pointer items-center justify-center
+        class="w1/4"
+        flex="~ col"
+        @click="handleClickIcon(key)"
       >
-        <component :is="`el-icon-${toLine(item)}`" w8 h8 />
-        <div>{{ item }}</div>
+        <component :is="(ElIcons as any)[key]" h8 w8 />
+        <div>{{ key }}</div>
       </div>
     </div>
   </el-dialog>

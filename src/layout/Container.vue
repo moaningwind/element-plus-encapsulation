@@ -1,7 +1,8 @@
 <script lang='ts' setup>
 import axios from 'axios'
-// import SetupMenu from './SetupMenu.vue'
+import { Expand, Fold } from '@element-plus/icons-vue'
 import Menu from './Menu.vue'
+// import SetupMenu from './SetupMenu.vue'
 
 const collapse = ref(false)
 const menuData = shallowRef([])
@@ -26,12 +27,12 @@ onMounted(() => {
     </el-aside>
     <el-container>
       <el-header>
-        <div h-full flex justify-between items-center>
+        <div h-full flex items-center justify-between>
           <span cursor-pointer @click="collapse = !collapse">
-            <el-icon-expand v-if="collapse" w4 h4 />
-            <el-icon-fold v-else w4 h4 />
+            <Expand v-if="collapse" h4 w4 />
+            <Fold v-else h4 w4 />
           </span>
-          <Footer />
+          <TheHeader />
         </div>
       </el-header>
       <el-main>

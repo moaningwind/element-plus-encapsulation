@@ -1,7 +1,8 @@
 <script lang="tsx" setup>
+import type { DefineComponent } from 'vue'
 import * as Icons from '@element-plus/icons-vue'
 
-export interface MenuItem {
+interface MenuItem {
   [key: string]: any
   icon?: string
   name: string
@@ -9,59 +10,61 @@ export interface MenuItem {
   children?: MenuItem[]
 }
 
-export interface MenuProps {
+interface MenuProps {
   menuData: MenuItem[]
-  name?: string
-  index?: string
-  icon?: string
-  children?: string
+  nameField?: string
+  indexField?: string
+  iconField?: string
+  childrenField?: string
 }
 
 const props = withDefaults(defineProps<MenuProps>(), {
-  name: 'name',
-  index: 'index',
-  icon: 'icon',
-  children: 'children',
+  nameField: 'name',
+  indexField: 'index',
+  iconField: 'icon',
+  childrenField: 'children',
 })
 
 const attrs = useAttrs()
 
-const renderMenu = (menuData: MenuItem[]) => {
+function renderMenu(menuData: MenuItem[]) {
   return menuData.map((item) => {
-    const Icon = (Icons as any)[item[props.icon]]
+    const Icon = item[props.iconField]
+      ? (Icons as any)[item[props.iconField]] as DefineComponent<{}, {}, any>
+      : null
 
-    // sub-menu
-    const slots = {
-      default: () => renderMenu(item[props.children]),
-      title: () => {
-        return (
+    if (item[props.childrenField]?.length) {
+      // sub-menu
+      const slots = {
+        default: () => renderMenu(item[props.childrenField]),
+        title: () => {
+          return (
           <>
-            <Icon class="w4 h4 mr1" />
-            <span>{item[props.name]}</span>
+            {Icon ? <Icon h4 w4 /> : null}
+            <span>{item[props.nameField]}</span>
           </>
-        )
-      },
+          )
+        },
+      }
+      return <el-sub-menu min-w-45 gap-1 index={item[props.indexField]} v-slots={slots} />
     }
 
-    // 递归渲染children
-    if (item[props.children]?.length)
-      return <el-sub-menu class="min-w-45" index={item[props.index]} v-slots={slots} />
-
-    // 正常渲染普通的菜单
     return (
-      <el-menu-item class="min-w-45" index={item[props.index]}>
-        <Icon class="w4 h4 mr1" />
-        <span>{item[props.name]}</span>
+      <el-menu-item min-w-45 gap-1 index={item[props.indexField]}>
+        {Icon ? <Icon h4 w4 /> : null}
+        <span>{item[props.nameField]}</span>
       </el-menu-item>
     )
   })
 }
 
-const render = () => (
-  <el-menu class="h100vh" {...attrs}>
-    {renderMenu(props.menuData)}
-  </el-menu>
-)
+function render() {
+  return (
+    <el-menu h-screen {...attrs}>
+      {renderMenu(props.menuData)}
+    </el-menu>
+  )
+}
 </script>
 
 <template>
