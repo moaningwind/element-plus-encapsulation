@@ -2,6 +2,7 @@
 
 import path from 'node:path'
 import { defineConfig } from 'vite'
+import VueDevTools from 'vite-plugin-vue-devtools'
 import ReactivityTransform from '@vue-macros/reactivity-transform/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
@@ -20,6 +21,8 @@ export default defineConfig({
     },
   },
   plugins: [
+    VueDevTools(),
+
     ReactivityTransform(),
 
     VueMacros({
