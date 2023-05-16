@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<MenuProps>(), {
 
 const attrs = useAttrs()
 
-function renderMenu(menuData: MenuItem[]) {
+function RenderMenu(menuData: MenuItem[]) {
   return menuData.map((item) => {
     const Icon = item[props.iconField]
       ? (Icons as any)[item[props.iconField]] as DefineComponent<{}, {}, any>
@@ -36,7 +36,7 @@ function renderMenu(menuData: MenuItem[]) {
     if (item[props.childrenField]?.length) {
       // sub-menu
       const slots = {
-        default: () => renderMenu(item[props.childrenField]),
+        default: () => RenderMenu(item[props.childrenField]),
         title: () => {
           return (
           <>
@@ -58,15 +58,15 @@ function renderMenu(menuData: MenuItem[]) {
   })
 }
 
-function render() {
+function RenderSetupMenu() {
   return (
     <el-menu h-screen {...attrs}>
-      {renderMenu(props.menuData)}
+      {RenderMenu(props.menuData)}
     </el-menu>
   )
 }
 </script>
 
 <template>
-  <component :is="render" />
+  <RenderSetupMenu />
 </template>
