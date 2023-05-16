@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 
 import path from 'node:path'
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import ReactivityTransform from '@vue-macros/reactivity-transform/vite'
 import VueMacros from 'unplugin-vue-macros/vite'
@@ -21,6 +21,8 @@ export default defineConfig({
     },
   },
   plugins: [
+    splitVendorChunkPlugin(),
+
     VueDevTools(),
 
     ReactivityTransform(),
@@ -63,6 +65,17 @@ export default defineConfig({
     // see unocss.config.ts for config
     Unocss(),
   ],
+
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'element-plus': ['element-plus'],
+          'element-icon': ['@element-plus/icons-vue'],
+        },
+      },
+    },
+  },
 
   // https://github.com/vitest-dev/vitest
   test: {
