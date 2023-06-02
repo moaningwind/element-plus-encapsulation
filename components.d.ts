@@ -11,6 +11,8 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ChooseIcon: typeof import('./src/components/ChooseIcon.vue')['default']
     Counter: typeof import('./src/components/Counter.vue')['default']
+    CustomTable: typeof import('./src/components/CustomTable.vue')['default']
+    CustomTableColumn: typeof import('./src/components/CustomTableColumn.vue')['default']
     Progress: typeof import('./src/components/Progress.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
