@@ -1,14 +1,7 @@
 <script lang="tsx">
-import type { DefineComponent, ExtractPropTypes } from 'vue'
+import type { DefineComponent, ExtractPublicPropTypes } from 'vue'
 import * as Icons from '@element-plus/icons-vue'
-
-interface MenuItem {
-  [key: string]: any
-  icon?: string
-  name: string
-  index: string
-  children?: MenuItem[]
-}
+import type { MenuItem } from './type'
 
 const props = {
   menuData: {
@@ -33,16 +26,7 @@ const props = {
   },
 } as const
 
-type MenuProps = ExtractPropTypes<typeof props>
-
-type RequiredByKeys<T, K extends keyof T> = {
-  [P in K]-?: T[P]
-} & Omit<T, K>
-
-export type RealMenuProps = RequiredByKeys<
-  Partial<MenuProps>,
-  'menuData'
->
+export type MenuProps = ExtractPublicPropTypes<typeof props>
 
 export default defineComponent({
   props,

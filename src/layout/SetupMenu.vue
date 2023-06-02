@@ -1,16 +1,9 @@
 <script lang="tsx" setup>
 import type { DefineComponent } from 'vue'
 import * as Icons from '@element-plus/icons-vue'
+import type { MenuItem } from './type'
 
-interface MenuItem {
-  [key: string]: any
-  icon?: string
-  name: string
-  index: string
-  children?: MenuItem[]
-}
-
-interface MenuProps {
+export interface MenuProps {
   menuData: MenuItem[]
   nameField?: string
   indexField?: string
