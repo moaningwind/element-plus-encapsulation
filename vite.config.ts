@@ -3,8 +3,6 @@
 import path from 'node:path'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import VueDevTools from 'vite-plugin-vue-devtools'
-import ReactivityTransform from '@vue-macros/reactivity-transform/vite'
-import VueMacros from 'unplugin-vue-macros/vite'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 import { viteMockServe } from 'vite-plugin-mock'
@@ -25,14 +23,14 @@ export default defineConfig({
 
     VueDevTools(),
 
-    ReactivityTransform(),
-
-    VueMacros({
-      plugins: {
-        vue: Vue(),
-        vueJsx: VueJsx(),
+    Vue({
+      script: {
+        propsDestructure: true,
+        defineModel: true,
       },
     }),
+
+    VueJsx(),
 
     // https://www.npmjs.com/package/vite-plugin-mock
     viteMockServe({

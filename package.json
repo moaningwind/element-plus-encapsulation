@@ -16,7 +16,7 @@
     "axios": "^0.21.4",
     "element-plus": "^2.3.3",
     "lodash-es": "^4.17.21",
-    "vue": "^3.2.47",
+    "vue": "^3.3.4",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
@@ -30,8 +30,6 @@
     "@unocss/transformer-attributify-jsx": "^0.50.8",
     "@vitejs/plugin-vue": "^4.1.0",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
-    "@vue-macros/reactivity-transform": "^0.3.4",
-    "@vue-macros/volar": "^0.9.4",
     "@vue/test-utils": "^2.3.2",
     "eslint": "^8.38.0",
     "jsdom": "^21.1.1",
@@ -42,7 +40,6 @@
     "unocss": "^0.50.8",
     "unplugin-auto-import": "^0.15.2",
     "unplugin-vue-components": "^0.24.1",
-    "unplugin-vue-macros": "^1.11.2",
     "vite": "^4.2.1",
     "vite-plugin-mock": "^2.9.6",
     "vite-plugin-pages": "^0.28.0",
