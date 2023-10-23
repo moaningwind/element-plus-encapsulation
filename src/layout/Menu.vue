@@ -34,7 +34,7 @@ export default defineComponent({
     const renderMenu = (menuData: MenuItem[]) => {
       return menuData.map((item) => {
         const Icon = item[props.iconField]
-          ? (Icons as any)[item[props.iconField]] as DefineComponent<{}, {}, any>
+          ? (Icons as any)[item[props.iconField]] as DefineComponent<object, object, any>
           : null
 
         if (item[props.childrenField]?.length) {

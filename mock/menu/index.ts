@@ -17,12 +17,12 @@ export default [
           {
             icon: 'Check',
             name: '图标选择器',
-            index: '/chooseIconPage',
+            index: '/ChooseIconPage',
           },
           {
             icon: 'DArrowRight',
             name: '进度条',
-            index: '/progressPage',
+            index: '/ProgressPage',
           },
         ],
       }

@@ -8,7 +8,7 @@ export interface CountToOptions {
   duration?: number
   autoplay?: boolean
   useEasing?: boolean
-  easingFn?: Function
+  easingFn?: (x: number) => number
 }
 
 // https://easings.net/
