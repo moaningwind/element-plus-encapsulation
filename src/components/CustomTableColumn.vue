@@ -3,8 +3,8 @@ function CustomTableColumn(props, { slots }) {
   function RenderCustomTableColumn(column, slots) {
     return (
       <el-table-column
-        { ...column }
-        align={ column.align ?? 'center'}
+        {...column}
+        align={column.align ?? 'center'}
       >
         {{
           default: (scope) => {

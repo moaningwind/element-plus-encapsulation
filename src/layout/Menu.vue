@@ -43,10 +43,10 @@ export default defineComponent({
             default: () => renderMenu(item[props.childrenField]),
             title: () => {
               return (
-              <>
-                {Icon ? <Icon h4 w4 /> : null}
-                <span>{item[props.nameField]}</span>
-              </>
+                <>
+                  {Icon ? <Icon h4 w4 /> : null}
+                  <span>{item[props.nameField]}</span>
+                </>
               )
             },
           }
