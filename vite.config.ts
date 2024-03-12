@@ -2,6 +2,7 @@
 
 import path from 'node:path'
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { visualizer } from 'rollup-plugin-visualizer'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
@@ -21,6 +22,12 @@ export default defineConfig({
   plugins: [
     splitVendorChunkPlugin(),
 
+    visualizer({
+      open: true,
+      gzipSize: true,
+      filename: 'stats.html',
+    }),
+
     VueDevTools(),
 
     Vue({
@@ -34,7 +41,7 @@ export default defineConfig({
 
     // https://www.npmjs.com/package/vite-plugin-mock
     viteMockServe({
-      localEnabled: true,
+      enable: true,
     }),
 
     // https://github.com/hannoeru/vite-plugin-pages
@@ -67,9 +74,12 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'element-plus': ['element-plus'],
-          'element-icon': ['@element-plus/icons-vue'],
+        manualChunks(id) {
+          if (id.includes('@element-plus/icons-vue'))
+            return 'element-icons'
+
+          if (id.includes('element-plus'))
+            return 'element-plus'
         },
       },
     },

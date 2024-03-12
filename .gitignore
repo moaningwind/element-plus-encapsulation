@@ -10,3 +10,5 @@ node_modules
 # log file
 *.log
 
+# visualizer
+/stats.html
