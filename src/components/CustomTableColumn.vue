@@ -1,6 +1,6 @@
 <script lang="jsx">
 function CustomTableColumn(props, { slots }) {
-  function RenderCustomTableColumn(column, slots) {
+  function RenderCustomTableColumn({ children, ...column }, slots) {
     return (
       <el-table-column
         {...column}
@@ -8,8 +8,8 @@ function CustomTableColumn(props, { slots }) {
       >
         {{
           default: (scope) => {
-            if (column.children)
-              return column.children.map(child => RenderCustomTableColumn(child, slots))
+            if (children)
+              return children.map(child => RenderCustomTableColumn(child, slots))
             if (column.render)
               return column.render(scope)
             if (slots[column.prop])
