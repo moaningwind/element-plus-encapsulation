@@ -11,6 +11,7 @@ declare module 'vue' {
     Counter: typeof import('./src/components/Counter.vue')['default']
     CustomTable: typeof import('./src/components/CustomTable.vue')['default']
     CustomTableColumn: typeof import('./src/components/CustomTableColumn.vue')['default']
+    LazyTooltip: typeof import('./src/components/LazyTooltip.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TheHeader: typeof import('./src/components/TheHeader.vue')['default']

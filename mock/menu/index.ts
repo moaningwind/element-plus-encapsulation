@@ -24,6 +24,10 @@ export default [
             name: '进度条',
             index: '/ProgressPage',
           },
+          {
+            name: 'LazyTooltip',
+            index: '/LazyTooltipPage',
+          },
         ],
       }
     },

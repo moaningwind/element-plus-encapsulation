@@ -1,7 +1,7 @@
 /// <reference types="vitest" />
 
 import path from 'node:path'
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { defineConfig } from 'vite'
 import { visualizer } from 'rollup-plugin-visualizer'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Vue from '@vitejs/plugin-vue'
@@ -20,8 +20,6 @@ export default defineConfig({
     },
   },
   plugins: [
-    splitVendorChunkPlugin(),
-
     visualizer({
       open: true,
       gzipSize: true,
