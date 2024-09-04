@@ -30,7 +30,7 @@ export type MenuProps = ExtractPublicPropTypes<typeof props>
 
 export default defineComponent({
   props,
-  setup(props, { attrs }) {
+  setup(props) {
     const renderMenu = (menuData: MenuItem[]) => {
       return menuData.map((item) => {
         const Icon = item[props.iconField]
@@ -63,7 +63,7 @@ export default defineComponent({
     }
 
     return () => (
-      <el-menu h-screen {...attrs}>
+      <el-menu h-screen>
         {renderMenu(props.menuData)}
       </el-menu>
     )

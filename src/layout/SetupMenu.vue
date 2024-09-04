@@ -18,8 +18,6 @@ const props = withDefaults(defineProps<MenuProps>(), {
   childrenField: 'children',
 })
 
-const attrs = useAttrs()
-
 function RenderMenu(menuData: MenuItem[]) {
   return menuData.map((item) => {
     const Icon = item[props.iconField]
@@ -51,15 +49,13 @@ function RenderMenu(menuData: MenuItem[]) {
   })
 }
 
-function RenderSetupMenu() {
-  return (
-    <el-menu h-screen {...attrs}>
-      {RenderMenu(props.menuData)}
-    </el-menu>
-  )
+function RenderMenuFactory() {
+  return RenderMenu(props.menuData)
 }
 </script>
 
 <template>
-  <RenderSetupMenu />
+  <el-menu h-screen>
+    <RenderMenuFactory />
+  </el-menu>
 </template>
