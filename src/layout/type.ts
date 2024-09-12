@@ -1,3 +1,5 @@
+import Container from './Container.vue'
+
 export interface MenuItem {
   [key: string]: any
   icon?: string
@@ -5,3 +7,5 @@ export interface MenuItem {
   index: string
   children?: MenuItem[]
 }
+
+console.log(Container)

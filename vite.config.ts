@@ -1,16 +1,17 @@
 /// <reference types="vitest" />
 
 import path from 'node:path'
-import { defineConfig } from 'vite'
-import { visualizer } from 'rollup-plugin-visualizer'
-import VueDevTools from 'vite-plugin-vue-devtools'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
-import { viteMockServe } from 'vite-plugin-mock'
-import Pages from 'vite-plugin-pages'
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
 import Unocss from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import TurboConsole from 'unplugin-turbo-console/vite'
+import Components from 'unplugin-vue-components/vite'
+import { VueRouterAutoImports } from 'unplugin-vue-router'
+import VueRouter from 'unplugin-vue-router/vite'
+import { defineConfig } from 'vite'
+import { viteMockServe } from 'vite-plugin-mock'
+import VueDevTools from 'vite-plugin-vue-devtools'
 
 export default defineConfig({
   resolve: {
@@ -20,20 +21,14 @@ export default defineConfig({
     },
   },
   plugins: [
-    visualizer({
-      open: true,
-      gzipSize: true,
-      filename: 'stats.html',
-    }),
+    TurboConsole(),
 
     VueDevTools(),
 
-    Vue({
-      script: {
-        propsDestructure: true,
-        defineModel: true,
-      },
-    }),
+    // https://github.com/posva/unplugin-vue-router
+    VueRouter(),
+
+    Vue(),
 
     VueJsx(),
 
@@ -42,15 +37,12 @@ export default defineConfig({
       enable: true,
     }),
 
-    // https://github.com/hannoeru/vite-plugin-pages
-    Pages(),
-
     // https://github.com/antfu/unplugin-auto-import
     AutoImport({
       imports: [
         'vue',
-        'vue-router',
         '@vueuse/core',
+        VueRouterAutoImports,
       ],
       dts: true,
       dirs: [

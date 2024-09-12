@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
-import type { DefineComponent } from 'vue'
 import * as Icons from '@element-plus/icons-vue'
+import type { DefineComponent } from 'vue'
 import type { MenuItem } from './type'
 
 export interface MenuProps {

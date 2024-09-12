@@ -1,6 +1,6 @@
 <script lang="ts">
-import type { ExtractPropTypes } from 'vue'
 import { defineComponent, nextTick, onMounted, ref, watch } from 'vue'
+import type { ExtractPropTypes } from 'vue'
 
 const lazyTooltipProps = {
   text: {
@@ -10,6 +10,23 @@ const lazyTooltipProps = {
 } as const
 
 export type LazyTooltipProps = ExtractPropTypes<typeof lazyTooltipProps>
+
+function hasHorizontalScrollbar(element: HTMLElement) {
+  return element.scrollWidth > element.clientWidth
+}
+
+function isTooltip(element: HTMLElement) {
+  const tempNode = element.cloneNode(true) as HTMLElement
+  tempNode.style.overflow = 'auto'
+  const parentNode = element.parentNode
+  if (!parentNode)
+    return false
+  // It must be loaded to the parent element, not document.body
+  parentNode.appendChild(tempNode)
+  const showTootip = hasHorizontalScrollbar(tempNode)
+  parentNode.removeChild(tempNode)
+  return showTootip
+}
 
 export default defineComponent({
   name: 'LazyTooltip',
@@ -27,23 +44,6 @@ export default defineComponent({
     onMounted(() => {
       showTooltip.value = isTooltip(lazyTooltip.value!)
     })
-
-    function isTooltip(element: HTMLElement) {
-      const tempNode = element.cloneNode(true) as HTMLElement
-      tempNode.style.overflow = 'auto'
-      const parentNode = element.parentNode
-      if (!parentNode)
-        return false
-      // It must be loaded to the parent element, not document.body
-      parentNode.appendChild(tempNode)
-      const showTootip = hasHorizontalScrollbar(tempNode)
-      parentNode.removeChild(tempNode)
-      return showTootip
-    }
-
-    function hasHorizontalScrollbar(element: HTMLElement) {
-      return element.scrollWidth > element.clientWidth
-    }
 
     return {
       lazyTooltip,

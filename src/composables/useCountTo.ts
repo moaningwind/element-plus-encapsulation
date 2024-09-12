@@ -1,6 +1,6 @@
-import type { MaybeRef, UseRafFnCallbackArguments } from '@vueuse/core'
 import { tryOnMounted, useRafFn } from '@vueuse/core'
 import { isRef, ref, unref, watch } from 'vue'
+import type { MaybeRef, UseRafFnCallbackArguments } from '@vueuse/core'
 
 export interface CountToOptions {
   startVal?: MaybeRef<number>

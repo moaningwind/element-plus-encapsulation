@@ -5,7 +5,6 @@ const text = ref('LazyTooltipLazyTooltipLazyTooltip')
 <template>
   <LazyTooltip max-w-20 :text="text">
     <el-tooltip
-      class="box-item"
       effect="dark"
       :content="text"
       placement="top-start"

@@ -1,6 +1,6 @@
 <script lang="tsx">
-import type { DefineComponent, ExtractPublicPropTypes } from 'vue'
 import * as Icons from '@element-plus/icons-vue'
+import type { DefineComponent, ExtractPublicPropTypes } from 'vue'
 import type { MenuItem } from './type'
 
 const props = {
