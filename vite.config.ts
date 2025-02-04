@@ -53,6 +53,7 @@ export default defineConfig({
 
     // https://github.com/antfu/vite-plugin-components
     Components({
+      deep: false,
       dts: true,
     }),
 
